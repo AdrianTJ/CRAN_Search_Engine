@@ -15,7 +15,7 @@ library(magrittr)
 ```{r}
 # Download matrix of available packages at specific date ------------------
 
-MRAN <- "http://mran.revolutionanalytics.com/snapshot/2022-04-28/"
+MRAN <- "http://mran.revolutionanalytics.com/snapshot/2022-05-10/"
 
 pdb <- MRAN %>%
   contrib.url(type = "source") %>%
@@ -102,9 +102,12 @@ head(getPackagesWithTitle())
 ```
 
 ```{r}
-merge(pdb, getPackagesWithTitle(), by = "Package") 
+packages <- merge(pdb, getPackagesWithTitle(), by = "Package") 
 ```
 
+```{r}
+write.csv(packages, file = "~/Documents/Repositories/CRAN_Search_Engine/packages_11_may_2022.csv")
+```
 
 
 
