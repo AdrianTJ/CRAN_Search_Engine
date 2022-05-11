@@ -1,0 +1,52 @@
+---
+title: "Proyecto Final"
+author: "Adrian Tame"
+date: '2022-04-23'
+output: html_document
+---
+
+```{r}
+library(igraph)
+library(tidyverse)
+library(magrittr)
+
+citations <- read.table("./cit-HepTh.txt")
+```
+
+```{r}
+m <- as.matrix(citations)
+g <- graph_from_edgelist(m, directed = TRUE)
+```
+
+```{r}
+pr <- g %>%
+  page.rank(directed = FALSE) %>%
+  use_series("vector") %>%
+  sort(decreasing = TRUE) %>%
+  as.matrix %>%
+  set_colnames("page.rank")
+```
+
+```{r}
+# Display results ---------------------------------------------------------
+
+head(pr, 25)
+```
+
+
+```{r, fig.height = 8, fig.width=8}
+# build dependency graph of top packages ----------------------------------
+
+set.seed(42)
+pr %>%
+  head(25) %>%
+  rownames %>%
+  makeDepGraph(pdb) %>%
+  plot(main="Top packages by page rank", cex=0.5)
+```
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+---
+title: "Proyecto Final Pruebas"
+author: "Adrian Tame"
+date: '2022-04-23'
+output: html_document
+---
+
+```{r}
+library(miniCRAN)
+library(igraph)
+library(magrittr)
+```
+
+
+```{r}
+# Download matrix of available packages at specific date ------------------
+
+MRAN <- "http://mran.revolutionanalytics.com/snapshot/2022-04-28/"
+
+pdb <- MRAN %>%
+  contrib.url(type = "source") %>%
+  available.packages(type="source", filters = NULL)
+
+```
+
+
+```{r}
+# Use miniCRAN to build a graph of package dependencies -------------------
+
+# Note that this step takes a while, expect ~15-30 seconds
+
+g <- pdb[, "Package"] %>%
+  makeDepGraph(availPkgs = pdb, suggests=FALSE, enhances=TRUE, includeBasePkgs = FALSE)
+```
+
+```{r}
+# Use the page.rank algorithm in igraph -----------------------------------
+
+pr <- g %>%
+  page.rank(directed = FALSE) %>%
+  use_series("vector") %>%
+  sort(decreasing = TRUE) %>%
+  as.matrix %>%
+  set_colnames("page.rank")
+
+```
+
+
+```{r}
+# Display results ---------------------------------------------------------
+
+head(pr, 25)
+```
+
+
+```{r, fig.height = 10, fig.width=10}
+# build dependency graph of top packages ----------------------------------
+
+set.seed(42)
+pr %>%
+  head(25) %>%
+  rownames %>%
+  makeDepGraph(pdb) %>%
+  plot(main="Top packages by page rank", cex=0.5)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+require("tools")
+
+getPackagesWithTitle <- function() {
+     contrib.url(getOption("repos")["CRAN"], "source") 
+     description <- sprintf("%s/web/packages/packages.rds", 
+                            getOption("repos")["CRAN"])
+     con <- if(substring(description, 1L, 7L) == "file://") {
+         file(description, "rb")
+     } else {
+         url(description, "rb")
+     }
+     on.exit(close(con))
+     db <- readRDS(gzcon(con))
+     rownames(db) <- NULL
+
+     db[, c("Package", "Title", "Description")]
+}
+
+head(getPackagesWithTitle()) 
+
+```
+
+```{r}
+merge(pdb, getPackagesWithTitle(), by = "Package") 
+```
+
+
+
+
