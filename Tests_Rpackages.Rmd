@@ -26,7 +26,6 @@ pdb <- MRAN %>%
 
 ```{r}
 # Use miniCRAN to build a graph of package dependencies -------------------
-
 # Note that this step takes a while, expect ~15-30 seconds
 
 g <- pdb[, "Package"] %>%
@@ -58,24 +57,11 @@ head(pr, 25)
 
 set.seed(42)
 pr %>%
-  head(25) %>%
+  head(10) %>%
   rownames %>%
   makeDepGraph(pdb) %>%
   plot(main="Top packages by page rank", cex=0.5)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ```{r}
@@ -103,6 +89,7 @@ head(getPackagesWithTitle())
 
 ```{r}
 packages <- merge(pdb, getPackagesWithTitle(), by = "Package") 
+packages <- merge(packages, tibble::rownames_to_column(as.data.frame(pr), "Package"), by = "Package")
 ```
 
 ```{r}
