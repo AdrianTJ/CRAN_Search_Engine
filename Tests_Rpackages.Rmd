@@ -93,7 +93,7 @@ packages <- merge(packages, tibble::rownames_to_column(as.data.frame(pr), "Packa
 ```
 
 ```{r}
-write.csv(packages, file = "~/Documents/Repositories/CRAN_Search_Engine/packages_11_may_2022.csv")
+write.csv(packages, file = "~/Documents/Repositories/CRAN_Search_Engine/data/packages_11_may_2022.csv")
 ```
 
 
