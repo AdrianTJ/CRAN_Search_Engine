@@ -1,7 +1,4 @@
 from flask import Flask,request, url_for, redirect, render_template
-#import pickle
-#import numpy as np
-
 import pandas as pd
 import numpy as np
 from joblib import load
