@@ -15,7 +15,7 @@ library(magrittr)
 ```{r}
 # Download matrix of available packages at specific date ------------------
 
-MRAN <- "http://mran.revolutionanalytics.com/snapshot/2022-05-10/"
+MRAN <- "http://mran.revolutionanalytics.com/snapshot/2014-11-01/"
 
 pdb <- MRAN %>%
   contrib.url(type = "source") %>%
@@ -48,7 +48,7 @@ pr <- g %>%
 ```{r}
 # Display results ---------------------------------------------------------
 
-head(pr, 25)
+head(pr, 10)
 ```
 
 
