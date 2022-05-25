@@ -33,7 +33,7 @@ python3 app.py
 
 This will run the Flash app and activate a port where the website can be opened. Once you open the port in an explorer you are directed to the website.
 
-![](/home/nelsonalejandrov/Documents/MetodosAnaliticos/Repositories/CRAN_Search_Engine/imgs/welcome.png)
+<img src="./imgs/welcome.png" title="" alt="welcome.png" data-align="center">
 
 Once inside, you can type key words in the `Query` box according to the package you are looking for. In the second box, `Order by`, you can choose how to sort the search results. These results could be sorted by pagerank, TF-IDF index (PW_Similarity) or by Mix which is a combination of the previous two. If no order is introduced, results will be sorted by pagerank by default. 
 
@@ -41,7 +41,7 @@ Example given:
 
 Let's say we are working on a GIS project and we are interested in finding useful libraries for our project. We only need to type 'Geographical Information Systems' in the query box, an order category and hit the search button. This will return a list of the top twenty matching libraries, version, title, a description of what the library functions can do and the similarity values.
 
-![](/home/nelsonalejandrov/Documents/MetodosAnaliticos/Repositories/CRAN_Search_Engine/imgs/search.png)
+<img src="./imgs/search.png" title="" alt="search.png" data-align="center">
 
 **Prerequisites:**
 
